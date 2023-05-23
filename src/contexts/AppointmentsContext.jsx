@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createContext, useState } from 'react'
+import { getBasicAuth } from '../utils/auth';
 
 const baseUrl = 'http://localhost:8000'
 
@@ -26,7 +27,7 @@ export const AppointmentsContextProvider = (props) => {
     const listAppointmentsHandler = async () => {
         setIsLoading(true)
         await axios
-            .get(`${baseUrl}/users-api/appointments/`, basicauth)
+            .get(`${baseUrl}/users-api/appointments/`, getBasicAuth())
             .then((res) => {
                 setAppointmentList(res.data)
             })
@@ -40,7 +41,7 @@ export const AppointmentsContextProvider = (props) => {
     const retrieveAppointmentHandler = async (appointmentId) => {
         setIsLoading(true)
         await axios
-            .get(`${baseUrl}/users-api/appointments/${appointmentId}`, basicauth)
+            .get(`${baseUrl}/users-api/appointments/${appointmentId}`, getBasicAuth())
             .then((res) => {
                 setAppointmentDetail(res.data)
             })
@@ -54,7 +55,7 @@ export const AppointmentsContextProvider = (props) => {
     const createAppointmentHandler = async (appointmentData) => {
         setIsLoading(true)
         await axios
-            .post(`${baseUrl}/users-api/appointments/`, appointmentData, basicauth)
+            .post(`${baseUrl}/users-api/appointments/`, appointmentData, getBasicAuth())
             .then((res) => {
                 setAppointmentDetail(res.data)
                 setCreateAppointmentError({})
@@ -70,7 +71,7 @@ export const AppointmentsContextProvider = (props) => {
     const cancelAppointmentHandler = async (appointmentData) => {
         setIsLoading(true)
         await axios
-            .post(`${baseUrl}/users-api/appointments/${appointmentData.id}/cancel/`, {}, basicauth)
+            .post(`${baseUrl}/users-api/appointments/${appointmentData.id}/cancel/`, {}, getBasicAuth())
             .then((res) => {
                 setAppointmentDetail(res.data)
             })

@@ -1,7 +1,8 @@
+import { useContext } from 'react'
+import UsersContext from '../contexts/UsersContext'
+import { redirect } from 'react-router-dom'
 
-
-
-function LoginForm(loginError, onSubmit) {
+function LoginForm({loginError, onSubmit}) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -11,11 +12,14 @@ function LoginForm(loginError, onSubmit) {
         console.log('submitting', values);
 
         onSubmit(values)
+
+        // <Navigate replace to={'/home'} />
+        return redirect(`/home`);
     }
 
     return (
         <form onSubmit={handleSubmit}>
-
+            {loginError.detail ? <p style={{ color: 'red' }}>{loginError.detail}</p> : null}
             <fieldset>
                 <label htmlFor="usernameField">Email</label>
                 <input type="email" name="username" id="usernameField" />
@@ -33,10 +37,14 @@ function LoginForm(loginError, onSubmit) {
 
 
 export default function LoginPage() {
+    const { 
+        loginHandler,
+        userLoginError,
+        } = useContext(UsersContext)
 
     return (
         <>
-            <LoginForm loginError={{}} onSubmit={() => { }} />
+            <LoginForm loginError={userLoginError} onSubmit={loginHandler} />
         </>
     )
 }

@@ -21,25 +21,23 @@ function PetListPage() {
     useEffect(() => {
         listPets()
     }, [])
-
+    
     if (petsLoading) {
         return <p>cargando...</p>
     }
 
     return (
-        <>
+        <> 
             <div className='float-right'>
-                <button className='button' onClick={ openModal }>Agregar mascota</button>
+                    <button className='button' onClick={openModal}>Agregar mascota</button>
             </div>
-
             <PetsTable pets={petList} />
-
             <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                contentLabel="Example Modal"
-            >
-                <CreatePetForm createPet={ createPet } createPetError={ createPetError }/>
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Example Modal"
+                >
+                <CreatePetForm createPet={createPet} createPetError={createPetError} />
             </Modal>
         </>
     )
